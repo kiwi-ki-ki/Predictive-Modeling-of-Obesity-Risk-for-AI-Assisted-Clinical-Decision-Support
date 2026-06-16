@@ -65,8 +65,8 @@ Obese	30.7%
 
 ### Models Evaluated
 1. Dummy Classifier
-2. Logistic Regression
-3. Gradient Boosting
+2. Logistic Regression - base and tuned version
+3. Gradient Boosting - base and tuned version
 
 ### Models were evaluated using:
 - Accuracy
