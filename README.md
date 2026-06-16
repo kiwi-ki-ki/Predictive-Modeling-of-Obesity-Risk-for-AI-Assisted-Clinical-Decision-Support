@@ -33,14 +33,8 @@ The BRFSS is one of the largest ongoing health-related survey systems in the wor
 - Health status information
 - Target Variable
 
-## Obesity status was defined using Body Mass Index (BMI):
-
-Obese = BMI ≥ 30
-Non-Obese = BMI < 30
-
-The prediction task was framed as a binary classification problem.
-
 ## Methodology
+
 ### Data Preprocessing
 
 The raw BRFSS data was provided in fixed-width ASCII format and was converted into a structured dataset using CDC SAS labeling documentation.
@@ -57,6 +51,11 @@ The raw BRFSS data was provided in fixed-width ASCII format and was converted in
 
 The dataset was divided using an 80/20 stratified split to preserve class distributions across training and testing sets.
 
+### Obesity status was defined using Body Mass Index (BMI):
+
+Obese = BMI ≥ 30
+Non-Obese = BMI < 30
+
 ### Class Distribution
 
 The final dataset exhibited class imbalance:
@@ -66,13 +65,8 @@ Obese	30.7%
 
 ### Models Evaluated
 1. Dummy Classifier
-A baseline model was used to establish minimum performance expectations.
-
 2. Logistic Regression
-An interpretable linear classification model was developed to evaluate relationships between predictors and obesity risk.
-
 3. Gradient Boosting
-An ensemble machine learning approach was implemented to capture nonlinear relationships and complex feature interactions.
 
 ### Models were evaluated using:
 - Accuracy
@@ -80,8 +74,6 @@ An ensemble machine learning approach was implemented to capture nonlinear relat
 - Recall
 - F1 Score
 - ROC-AUC
-
-### Additional evaluation techniques included:
 - Confusion Matrices
 - ROC Curves
 
@@ -96,46 +88,13 @@ Because obesity prediction involved identifying at-risk individuals, particular 
 | Logistic Regression | 0.625 | 0.423 | 0.607 | 0.498 | 0.665 |
 | Gradient Boosting | 0.713 | 0.579 | 0.240 | 0.339 | 0.708 |
 
-### Key Findings
+## Analysis
 
-#### Dummy Classifier
-- Although the baseline model achieved 69.3% accuracy, it failed to identify any obese individuals. This demonstrated why accuracy alone can be misleading when working with imbalanced datasets.
+Both machine learning models outperformed the baseline classifier, demonstrating that behavioral, demographic, socioeconomic, and health-related variables contained meaningful predictive information related to obesity risk. Although Gradient Boosting achieved higher accuracy, Logistic Regression provided substantially higher recall and greater interpretability, making it more suitable for identifying at-risk individuals in a clinical setting.
 
-#### Logistic Regression
+To improve model transparency, Logistic Regression coefficients were analyzed to identify the strongest predictors of obesity. Difficulty walking, smoking history, poorer self-reported health, and asthma emerged as some of the most influential risk factors. The project also generated obesity risk probabilities for individual observations, allowing the identification of non-obese individuals with elevated risk scores. These findings demonstrated the potential of machine learning as a clinical decision support tool for early risk screening and preventative intervention.
 
-Logistic Regression achieved:
-
-Higher recall
-Better F1 score
-Greater interpretability
-
-The model successfully identified a larger proportion of obese individuals, making it more useful for screening and early intervention scenarios.
-
-#### Gradient Boosting
-
-Gradient Boosting achieved:
-
-Higher overall accuracy
-Higher precision
-Higher ROC-AUC
-
-However, it demonstrated substantially lower recall, meaning many at-risk individuals were not identified.
-
-## Discussion
-
-The findings supported the hypothesis that behavioral, demographic, socioeconomic, and health-related variables contained meaningful predictive information related to obesity risk.
-
-Both machine learning models outperformed the baseline classifier, confirming that obesity risk could be modeled using population-level survey data.
-
-Contrary to the alternative hypothesis, Gradient Boosting did not outperform Logistic Regression in a clinically meaningful way. Although Gradient Boosting achieved superior accuracy and precision, its low recall reduced its usefulness for identifying individuals who may have benefited from early intervention.
-
-These findings highlighted an important consideration in healthcare machine learning:
-
-The best model was not necessarily the most accurate model.
-
-For clinical screening applications, maximizing recall is often more important than maximizing accuracy because missing at-risk individuals could have significant health consequences.
-
-Logistic Regression also provided transparency and explainability, making it easier for healthcare professionals to understand the factors contributing to predictions.
+Overall, the results highlighted the importance of evaluating machine learning models within the context of their intended application rather than relying solely on accuracy metrics. In healthcare settings, the ability to identify at-risk individuals and provide transparent, interpretable predictions may be more valuable than maximizing predictive performance alone.
 
 ### Limitations
 
@@ -164,18 +123,3 @@ While the models were not intended to replace clinical judgment, they demonstrat
 - Matplotlib
 - Seaborn
 - Jupyter Notebook
-
-###Future Work
-
-Potential future improvements included:
-- Longitudinal obesity prediction
-- Fairness and bias evaluation across demographic groups
-- Model calibration analysis
-- SHAP-based explainability
-- External validation on independent datasets
-- Development of clinician-facing prediction tools
-- Deployment as an interactive healthcare application
-
-## Conclusion
-
-These findings emphasized that machine learning models should be evaluated within the context of their intended application rather than relying solely on accuracy metrics. In healthcare settings, the ability to identify at-risk individuals and provide transparent explanations may have been more valuable than maximizing predictive performance alone.
